@@ -12,10 +12,9 @@ class UrlsController extends \BaseController {
 		//Formely: return 'You just arrived Here';
         
         $url = Url::where('user_id', Auth::user()->id)->get();
-            
+        
         return Response::json(array(
-            'error' => false,
-            'urls'  => $url->toArray()),
+            'urls almacenadas'  => $url), #->toArray()),
         200);
 	}
 
@@ -49,8 +48,8 @@ class UrlsController extends \BaseController {
         $url->save();
  
         return Response::json(array(
-        'error' => false,
-        'urls' => $url->toArray()),
+        'url' => $url->url,
+        'description' => $url->description),#>toArray()),
         200
     );
 	}
@@ -72,7 +71,7 @@ class UrlsController extends \BaseController {
  
         return Response::json(array(
         'error' => false,
-        'urls' => $url->toArray()),
+        'urls' => $url),#->toArray()),
         200);
 	}
 
@@ -97,22 +96,23 @@ class UrlsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$url = Url::where('user_id', Auth::user()->id)->find($id);
+		$url = Url::where('user_id', Auth::user()->id)->find($id); //id de la url
  
-    if ( Request::has('url') )
+    if ($url!=Request::get('url') )
     {
         $url->url = Request::get('url');
     }
  
-    if ( Request::has('description') )
+    if ($url!=Request::get('description') )
     {
         $url->description = Request::get('description');
     }
     $url->save();
  
     return Response::json(array(
-        'error' => false,
-        'message' => 'url updated'),
+        'message' => 'url actualizada',
+        'url' => $url->url,
+        'description' => $url->description),
         200);
 	}
 
@@ -129,7 +129,7 @@ class UrlsController extends \BaseController {
         $url->delete();
  
         return Response::json(array(
-        'error' => false,
+        //'error' => false,
         'message' => 'url deleted'),
         200);
 	}

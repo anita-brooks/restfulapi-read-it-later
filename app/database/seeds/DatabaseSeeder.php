@@ -23,12 +23,12 @@ class UserTableSeeder extends Seeder {
         DB::table('users')->delete();
         
         User::create(array(
-            'username' => 'userOne',
+            'username' => 'auntieDot',
             'password' => Hash::make('root')
         ));
         
         USer::create(array(
-            'username' => 'userTwo',
+            'username' => 'cortana',
             'password' => Hash::make('root')
         ));
     
